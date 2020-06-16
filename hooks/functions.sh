@@ -47,7 +47,8 @@ function die_on_error() { # {{{2
 
 function find_version_file() { # {{{2
   local status
-  local file=$(grep -lE "var[ ]+version[ ]*=" "$ROOT_DIR"/*.js)
+  local ext=$1
+  local file=$(grep -lE "var[ ]+version[ ]*=" "$ROOT_DIR"/*.${ext})
 
   status=$? ; [[ $status != 0 ]] && (error "Failed to grep through $ROOT_DIR" ; return $status)
   [[ -z $file ]] && (error "Failed to find a file carrying the version" ; return 1)
@@ -57,7 +58,10 @@ function find_version_file() { # {{{2
 } # 2}}}
 
 function get_version() { # {{{2
-  local version=$(grep -E "var[ ]+version[ ]*=" $VERSION_FILE | sed -E "s/.*var[ ]+version[ ]*=[ ]*['\"]([0-9]+\.[0-9]+\.[0-9]+)['\"]/\1/")
+  local status
+  local file=$1
+  local version=$(grep -E "var[ ]+version[ ]*=" $file | sed -E "s/.*var[ ]+version[ ]*=[ ]*['\"]([0-9]+\.[0-9]+\.[0-9]+)['\"]/\1/")
+  status=$? ; [[ $status != 0 ]] && (error "Failed to get the version from $file" ; return $status)
   printf "%s" $version
   return 0
 } # 2}}}

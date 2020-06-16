@@ -26,7 +26,7 @@ if [[ -z $HOOKS_DIR ]]; then
 fi
 source "$HOOKS_DIR"/functions.sh
 
-VERSION_FILE=$(find_version_file)
+VERSION_FILE=$(find_version_file js)
 die_on_error "$VERSION_FILE"
 
 # Remove the version prefix, if any
