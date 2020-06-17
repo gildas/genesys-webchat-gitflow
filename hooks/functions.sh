@@ -73,10 +73,10 @@ function bump_version() { # {{{2
 
   case $what in
     major)
-      printf "%s.%s.%s" $((components[0] + 1)) ${components[1]} ${components[2]}
+      printf "%s.0.0" $((components[0] + 1))
       ;;
     minor)
-      printf "%s.%s.%s" ${components[0]} $((components[1] + 1)) ${components[2]}
+      printf "%s.%s.0" ${components[0]} $((components[1] + 1))
       ;;
     patch)
       printf "%s.%s.%s" ${components[0]} ${components[1]} $((components[2] + 1))
